@@ -190,7 +190,7 @@ to verify that every thread has actually finished its computations:
 
 	cudaDeviceSynchronize();
 
- Ici généralement les blocs sont synchronisés
+ Ici généralement les blocs sont synchronisés. Pour etre sure que le GPU a terminé
 
 -------------------------------------------
 
