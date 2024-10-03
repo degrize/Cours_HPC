@@ -103,6 +103,10 @@ and this is how it looks like for our specific problem:
 	   sum_gpu[copy] = sum;
 	};
 
+__global__ : kernel : Du CPU (lancer sur CPU) on passe au GPU (executer sur GPU)
+__device__ : GPU
+__host__ : CPU
+
 If you're new with CUDA programming, there are several details
 you need to know to fully understand this code. If you're one of
 my students, please consider to participate to the lectures. Here
@@ -148,6 +152,8 @@ data, we need to allocate memory on the GPU:
 	cudaMalloc((void**)&set_gpu,n*sizeof(unsigned long));
 	cudaMalloc((void**)&sum_gpu,total_threads*sizeof(unsigned long));
 
+cudaMalloc : 
+
 Then, we can transfer the content of the array ```set```, 
 allocated on the RAM, to the array ```set_gpu``` that we have
 just allocated on the global memory:
@@ -170,6 +176,8 @@ of code that will launch the kernel:
 
 	ssp_on_gpu<<<nblocks,nthreads>>>(n,set_gpu,sum_gpu);
 
+ On a des threads dans les blocs. Par exemple 32 Threads dans chacun des 2 blocs
+
 Apart from the standard arguments for the C function, there are 
 other additional arguments related to the particular setup we wish 
 to have for our GPU. The argument ```nblocks``` indicates how many 
@@ -181,6 +189,8 @@ Before transferring the results to the RAM, it is fundamental
 to verify that every thread has actually finished its computations:
 
 	cudaDeviceSynchronize();
+
+ Ici généralement les blocs sont synchronisés
 
 -------------------------------------------
 
